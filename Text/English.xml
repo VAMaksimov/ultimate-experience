@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameData><LocalizedText>
+<Row Tag="LOC_UE_RECONSTRUCTION_NAME" Language="en_US"><Text>Reconstruction</Text></Row>
+<Row Tag="LOC_UE_REPAIR_RESULT" Language="en_US"><Text>Repaired: {1_Num}. Remaining: {2_Num}.</Text></Row>
+<Row Tag="LOC_UE_RECONSTRUCTION_DESCRIPTION" Language="en_US"><Text>Spend 2 Iron to activate. Immediately repair affordable pillaged districts for 10 Iron each, then buildings for 6 Iron each. Human players only. Unaffordable repairs remain unfinished.</Text></Row>
+</LocalizedText></GameData>

@@ -1,0 +1,205 @@
+[
+  {
+    "folder": "1362931045 Steel and Thunder_ Unique Units",
+    "name": "Steel and Thunder: Unique Units",
+    "author": "Deliverator",
+    "mod_id": "a1fe0ce2-ca98-4998-a0c9-2aa1639eb6d0",
+    "version": "Not declared",
+    "source": "https://steamcommunity.com/sharedfiles/filedetails/?id=1362931045",
+    "licenses": [],
+    "license_status": "No root license found; dependency only, no redistribution",
+    "source_sha256": "2a637cc91569a6f8f240f6bed9fba8db0f44502d97c47dda6ad1afdf74f5f564",
+    "runtime_tested": false,
+    "role": "optional"
+  },
+  {
+    "folder": "2465378070 Civ6 Plus_ Harmony in Diversity v2.1",
+    "name": "LOC_HARMONY_IN_DIVERSITY_NAME",
+    "author": "LOC_HARMONY_IN_DIVERSITY_AUTHORS",
+    "mod_id": "521b8777-0977-4859-a5ee-3e411a732e5c",
+    "version": "2.1",
+    "source": "https://steamcommunity.com/sharedfiles/filedetails/?id=2465378070",
+    "licenses": [
+      "LICENSE"
+    ],
+    "license_status": "See upstream license; dependency only",
+    "source_sha256": "ffffa571e61f1f05236605a9c652d91d628002910ec9ad95e17e76f2510e7706",
+    "runtime_tested": false,
+    "role": "excluded"
+  },
+  {
+    "folder": "2542898147 Sukritact's Oceans",
+    "name": "Sukritact's Oceans",
+    "author": "Sukritact",
+    "mod_id": "4922ba47-61e1-4b15-9281-db996b14522d",
+    "version": "1",
+    "source": "https://steamcommunity.com/sharedfiles/filedetails/?id=2542898147",
+    "licenses": [],
+    "license_status": "No root license found; dependency only, no redistribution",
+    "source_sha256": "99d20afed30a6b2642b04f41272182530a4c18bd24fcdf7e13d6ef8637cd2e37",
+    "runtime_tested": false,
+    "role": "required"
+  },
+  {
+    "folder": "2991439270 Gift It To Me. CQUI Compatibility Version",
+    "name": "Gift It To Me. CQUI Compatibility Version",
+    "author": "Fampat",
+    "mod_id": "bb513aed-e274-4bfc-8041-520e6b672f5e",
+    "version": "2.2",
+    "source": "https://steamcommunity.com/sharedfiles/filedetails/?id=2991439270",
+    "licenses": [],
+    "license_status": "No root license found; dependency only, no redistribution",
+    "source_sha256": "8a07279e630114a06839a15773b7bf5dcd811d6e597d513bf67a917bf74c71e5",
+    "runtime_tested": false,
+    "role": "optional"
+  },
+  {
+    "folder": "3179425402 Better Balanced Maps 1.37",
+    "name": "LOC_BBM_TITLE",
+    "author": "BaNiPouZ, Talasta",
+    "mod_id": "c88cba8b-8311-4d35-90c3-51a4a5d66542",
+    "version": "3",
+    "source": "https://steamcommunity.com/sharedfiles/filedetails/?id=3179425402",
+    "licenses": [
+      "license.txt"
+    ],
+    "license_status": "See upstream license; dependency only",
+    "source_sha256": "93d288a644ea5a49d451f59db79b28c34e733477ec043abdbdfea4631fec1f6b",
+    "runtime_tested": false,
+    "role": "optional"
+  },
+  {
+    "folder": "3468617387 Repair All Districts and Buildings",
+    "name": "LOC_RUIVO_FIX_ALL",
+    "author": "RUIVO",
+    "mod_id": "d965087e-512b-4efc-ab2e-54273324a55d",
+    "version": "1",
+    "source": "https://steamcommunity.com/sharedfiles/filedetails/?id=3468617387",
+    "licenses": [],
+    "license_status": "No root license found; dependency only, no redistribution",
+    "source_sha256": "16f941eb8acd22c7c09d3561e4cebc450783d4a882df03536c9ec66cc8e1a0e6",
+    "runtime_tested": false,
+    "role": "excluded"
+  },
+  {
+    "folder": "3511280405 Swift Scout",
+    "name": "Swift Scout",
+    "author": "K",
+    "mod_id": "49a50f5d-49db-4ed0-8a64-1bc9b1c9b782",
+    "version": "2",
+    "source": "https://steamcommunity.com/sharedfiles/filedetails/?id=3511280405",
+    "licenses": [],
+    "license_status": "No root license found; dependency only, no redistribution",
+    "source_sha256": "95eff16f8a91fe54d4adbb8ab121833588d11f1cccdb7be12ed8aa333203a4bf",
+    "runtime_tested": false,
+    "role": "optional"
+  },
+  {
+    "folder": "3525387402 Custom Era Prolongation",
+    "name": "LOC_CUSTOM_ERA_MULTIPLIER_NAME",
+    "author": "Apry",
+    "mod_id": "9d76fd00-ec24-4cc7-b0e1-0c40a83ab01e",
+    "version": "1",
+    "source": "https://steamcommunity.com/sharedfiles/filedetails/?id=3525387402",
+    "licenses": [],
+    "license_status": "No root license found; dependency only, no redistribution",
+    "source_sha256": "746af850d759fbf302c02b8297f1ea90d55b5ba273b0d9136ee5a0b2d1ca5fba",
+    "runtime_tested": false,
+    "role": "optional"
+  },
+  {
+    "folder": "882664162 Unique District Icons",
+    "name": "Leugi's Unique District Icons",
+    "author": "Leugi, Sukritact",
+    "mod_id": "83710098-5cae-4c9f-a1e4-8dc652a537fe",
+    "version": "1",
+    "source": "https://steamcommunity.com/sharedfiles/filedetails/?id=882664162",
+    "licenses": [],
+    "license_status": "No root license found; dependency only, no redistribution",
+    "source_sha256": "2eb0656e9e83ed5d3f677dd81e21fc60f2a9daf5269339e65c419c6dbd18287a",
+    "runtime_tested": false,
+    "role": "optional"
+  },
+  {
+    "folder": "BBG",
+    "name": "Better Balanced Game 7.3.1",
+    "author": "github.com/CivilizationVIBetterBalancedGame",
+    "mod_id": "cb84075d-5007-4207-b662-c35a5f7be260",
+    "version": "7031",
+    "source": "https://github.com/CivilizationVIBetterBalancedGame",
+    "licenses": [
+      "LICENSE"
+    ],
+    "license_status": "See upstream license; dependency only",
+    "source_sha256": "b21ef64f83b97d7c6805eeb360e683f7808322194a982118a9abda657e04540e",
+    "runtime_tested": false,
+    "role": "required"
+  },
+  {
+    "folder": "Better_Report",
+    "name": "Better Report Screen (UI)",
+    "author": "Infixo",
+    "mod_id": "6f2888d4-79dc-415f-a8ff-f9d81d7afb53",
+    "version": "1",
+    "source": "https://steamcommunity.com/sharedfiles/filedetails/?id=1312585482",
+    "licenses": [],
+    "license_status": "No root license found; dependency only, no redistribution",
+    "source_sha256": "3c6124e26712c785aed97f0e90e6080ce7d9224db5422551f6dea20e6de89e31",
+    "runtime_tested": false,
+    "role": "required"
+  },
+  {
+    "folder": "CQUI_Community-Edition-main",
+    "name": "Community Quick User Interface",
+    "author": "CQUI community / Civitas",
+    "mod_id": "1d44b5e7-753e-405b-af24-5ee634ec8a01",
+    "version": "3.1",
+    "source": "https://github.com/Civitas-Collective/CQUI_Community-Edition",
+    "licenses": [
+      "LICENSE"
+    ],
+    "license_status": "See upstream license; dependency only",
+    "source_sha256": "2eeadc5bf16a45383d8e46ec3315052c1729f718421055a31c97252322a72ffa",
+    "runtime_tested": false,
+    "role": "required"
+  },
+  {
+    "folder": "Detailed_Map_Tacks",
+    "name": "Detailed Map Tacks",
+    "author": "wltk, DeepLogic",
+    "mod_id": "4ecfcc62-5471-4435-b295-590df213e8d8",
+    "version": "1",
+    "source": "https://steamcommunity.com/sharedfiles/filedetails/?id=2428969051",
+    "licenses": [],
+    "license_status": "No root license found; dependency only, no redistribution",
+    "source_sha256": "104757b3762f0fae389215f7cda0f1f79271c120d525bb1fe28ae9a9cbbd2450",
+    "runtime_tested": false,
+    "role": "optional"
+  },
+  {
+    "folder": "Policy_Cards",
+    "name": "Extended Policy Cards",
+    "author": "Aristos",
+    "mod_id": "382a187f-c8ba-4094-a6a7-0d5315661f33",
+    "version": "1",
+    "source": "https://steamcommunity.com/sharedfiles/filedetails/?id=2266952591",
+    "licenses": [],
+    "license_status": "No root license found; dependency only, no redistribution",
+    "source_sha256": "1fe4f5a38b259f5edff36315cb754ecd24f3f953de15a4b93dfedf6e1ae76728",
+    "runtime_tested": false,
+    "role": "required"
+  },
+  {
+    "folder": "Quick_Deals",
+    "name": "Quick Deals",
+    "author": "wltk",
+    "mod_id": "5aceed03-8639-4a81-8cbf-03f54d543502",
+    "version": "1",
+    "source": "https://steamcommunity.com/sharedfiles/filedetails/?id=2460661464",
+    "licenses": [],
+    "license_status": "No root license found; dependency only, no redistribution",
+    "source_sha256": "11e4b43c6012a691b2a8737e8f87736660fba30549d6b2a7d8073e77ac389c00",
+    "runtime_tested": false,
+    "role": "optional"
+  }
+]

@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Mod id="5184c35b-e181-4bf9-8f7a-fdba61ae38a2" version="2">
+  <Properties>
+    <Name>Ultimate Experience</Name>
+    <Description>BBG compatibility, ocean content, policy housing, reconstruction and Survey XP. Requires a new Gathering Storm game. Disable Harmony in Diversity and the original Repair All mod.</Description>
+    <Authors>Ultimate Experience contributors</Authors>
+    <AffectsSavedGames>1</AffectsSavedGames>
+    <CompatibleVersions>2.0</CompatibleVersions>
+  </Properties>
+  <Dependencies>
+    <Mod id="4922ba47-61e1-4b15-9281-db996b14522d" title="Sukritact's Oceans" />
+    <Mod id="cb84075d-5007-4207-b662-c35a5f7be260" title="Better Balanced Game 7.3.1" />
+    <Mod id="6f2888d4-79dc-415f-a8ff-f9d81d7afb53" title="Better Report Screen (UI)" />
+    <Mod id="1d44b5e7-753e-405b-af24-5ee634ec8a01" title="Community Quick User Interface" />
+    <Mod id="382a187f-c8ba-4094-a6a7-0d5315661f33" title="Extended Policy Cards" />
+    <Mod id="4873eb62-8ccc-4574-b784-dda455e74e68" title="Gathering Storm" />
+    <Mod id="1B28771A-C749-434B-9053-D1380C553DE9" title="Rise and Fall" />
+  </Dependencies>
+  <Blocks>
+    <Mod id="521b8777-0977-4859-a5ee-3e411a732e5c" title="LOC_HARMONY_IN_DIVERSITY_NAME" />
+    <Mod id="d965087e-512b-4efc-ab2e-54273324a55d" title="LOC_RUIVO_FIX_ALL" />
+  </Blocks>
+  <ActionCriteria>
+    <Criteria id="UE_Oceans">
+      <ConfigurationValueMatches>
+        <Group>Game</Group>
+        <ConfigurationId>GAMEMODE_SUK_OCEANS</ConfigurationId>
+        <Value>1</Value>
+      </ConfigurationValueMatches>
+    </Criteria>
+  </ActionCriteria>
+  <InGameActions>
+    <UpdateDatabase id="UE_Capture">
+      <Properties>
+        <LoadOrder>4</LoadOrder>
+      </Properties>
+      <Criteria>UE_Oceans</Criteria>
+      <File>Data/OceansCapture.sql</File>
+    </UpdateDatabase>
+    <UpdateDatabase id="UE_Restore">
+      <Properties>
+        <LoadOrder>8</LoadOrder>
+      </Properties>
+      <Criteria>UE_Oceans</Criteria>
+      <File>Data/OceansRestore.sql</File>
+    </UpdateDatabase>
+    <UpdateText id="UE_TextCapture">
+      <Properties>
+        <LoadOrder>4</LoadOrder>
+      </Properties>
+      <Criteria>UE_Oceans</Criteria>
+      <File>Text/OceansCapture.sql</File>
+    </UpdateText>
+    <UpdateText id="UE_TextRestore">
+      <Properties>
+        <LoadOrder>8</LoadOrder>
+      </Properties>
+      <Criteria>UE_Oceans</Criteria>
+      <File>Text/OceansRestore.sql</File>
+    </UpdateText>
+    <UpdateDatabase id="UE_Reconstruction">
+      <Properties>
+        <LoadOrder>200000000</LoadOrder>
+      </Properties>
+      <File>Data/Reconstruction.sql</File>
+    </UpdateDatabase>
+    <UpdateText id="UE_Text">
+      <Properties>
+        <LoadOrder>20000</LoadOrder>
+      </Properties>
+      <File>Text/English.xml</File>
+    </UpdateText>
+    <UpdateIcons id="UE_Icons">
+      <Properties>
+        <LoadOrder>20000</LoadOrder>
+      </Properties>
+      <File>UI/Icons.sql</File>
+    </UpdateIcons>
+    <AddGameplayScripts id="UE_Gameplay">
+      <Properties>
+        <LoadOrder>20000</LoadOrder>
+      </Properties>
+      <File>Gameplay/Reconstruction.lua</File>
+      <File>Gameplay/ReconXP.lua</File>
+    </AddGameplayScripts>
+    <AddUserInterfaces id="UE_Refresh">
+      <Properties>
+        <Context>InGame</Context>
+        <LoadOrder>20000</LoadOrder>
+      </Properties>
+      <File>UI/RepairRefresh.xml</File>
+    </AddUserInterfaces>
+    <ReplaceUIScript id="UE_RealModifierAnalysis">
+      <Properties>
+        <LuaContext>RealModifierAnalysis</LuaContext>
+        <LuaReplace>UI/Housing.lua</LuaReplace>
+        <LoadOrder>20000</LoadOrder>
+      </Properties>
+    </ReplaceUIScript>
+    <ReplaceUIScript id="UE_GovernmentScreen">
+      <Properties>
+        <LuaContext>GovernmentScreen</LuaContext>
+        <LuaReplace>UI/Government.lua</LuaReplace>
+        <LoadOrder>20000</LoadOrder>
+      </Properties>
+    </ReplaceUIScript>
+    <ReplaceUIScript id="UE_ProductionPanel">
+      <Properties>
+        <LuaContext>ProductionPanel</LuaContext>
+        <LuaReplace>UI/Production.lua</LuaReplace>
+        <LoadOrder>20000</LoadOrder>
+      </Properties>
+    </ReplaceUIScript>
+    <ReplaceUIScript id="UE_TopPanel">
+      <Properties>
+        <LuaContext>TopPanel</LuaContext>
+        <LuaReplace>UI/TopPanel.lua</LuaReplace>
+        <LoadOrder>20000</LoadOrder>
+      </Properties>
+    </ReplaceUIScript>
+    <ImportFiles id="UE_Imports">
+      <Properties>
+        <LoadOrder>20000</LoadOrder>
+      </Properties>
+      <File>UI/Government.lua</File>
+      <File>UI/Housing.lua</File>
+      <File>UI/Production.lua</File>
+      <File>UI/RepairRefresh.lua</File>
+      <File>UI/TopPanel.lua</File>
+    </ImportFiles>
+  </InGameActions>
+  <Files>
+    <File>Data/OceansCapture.sql</File>
+    <File>Data/OceansRestore.sql</File>
+    <File>Data/Reconstruction.sql</File>
+    <File>Gameplay/Reconstruction.lua</File>
+    <File>Gameplay/ReconXP.lua</File>
+    <File>Text/English.xml</File>
+    <File>Text/OceansCapture.sql</File>
+    <File>Text/OceansRestore.sql</File>
+    <File>UI/Government.lua</File>
+    <File>UI/Housing.lua</File>
+    <File>UI/Icons.sql</File>
+    <File>UI/Production.lua</File>
+    <File>UI/RepairRefresh.lua</File>
+    <File>UI/RepairRefresh.xml</File>
+    <File>UI/TopPanel.lua</File>
+  </Files>
+</Mod>

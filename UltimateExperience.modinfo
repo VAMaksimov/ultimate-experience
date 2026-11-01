@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="5184c35b-e181-4bf9-8f7a-fdba61ae38a2" version="2">
+<Mod id="5184c35b-e181-4bf9-8f7a-fdba61ae38a2" version="3">
   <Properties>
     <Name>Ultimate Experience</Name>
     <Description>BBG compatibility, ocean content, policy housing, reconstruction and Survey XP. Requires a new Gathering Storm game. Disable Harmony in Diversity and the original Repair All mod.</Description>
@@ -104,17 +104,10 @@
         <LoadOrder>20000</LoadOrder>
       </Properties>
     </ReplaceUIScript>
-    <ReplaceUIScript id="UE_ProductionPanel">
-      <Properties>
-        <LuaContext>ProductionPanel</LuaContext>
-        <LuaReplace>UI/Production.lua</LuaReplace>
-        <LoadOrder>20000</LoadOrder>
-      </Properties>
-    </ReplaceUIScript>
     <ReplaceUIScript id="UE_TopPanel">
       <Properties>
         <LuaContext>TopPanel</LuaContext>
-        <LuaReplace>UI/TopPanel.lua</LuaReplace>
+        <LuaReplace>UI/UE_TopPanel.lua</LuaReplace>
         <LoadOrder>20000</LoadOrder>
       </Properties>
     </ReplaceUIScript>
@@ -124,9 +117,8 @@
       </Properties>
       <File>UI/Government.lua</File>
       <File>UI/Housing.lua</File>
-      <File>UI/Production.lua</File>
       <File>UI/RepairRefresh.lua</File>
-      <File>UI/TopPanel.lua</File>
+      <File>UI/UE_TopPanel.lua</File>
     </ImportFiles>
   </InGameActions>
   <Files>
@@ -141,9 +133,8 @@
     <File>UI/Government.lua</File>
     <File>UI/Housing.lua</File>
     <File>UI/Icons.sql</File>
-    <File>UI/Production.lua</File>
     <File>UI/RepairRefresh.lua</File>
     <File>UI/RepairRefresh.xml</File>
-    <File>UI/TopPanel.lua</File>
+    <File>UI/UE_TopPanel.lua</File>
   </Files>
 </Mod>

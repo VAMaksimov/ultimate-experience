@@ -4,6 +4,8 @@ A BBG-based solo pack with ocean content, policy housing estimates, reconstructi
 
 Release status: candidate; automated checks pass, full campaign and rendered UI acceptance remain pending.
 
+Better Balanced Maps 1.37: enable alongside this pack when creating a new map. One combined BBM + BBG + Oceans map is confirmed by the campaign log, and all seven Oceans resources pass BBM registration testing. Oceans redistributes sea resources after map generation, so coastal start balance across multiple seeds remains unverified. Keep BBM enabled when reloading a save created with it.
+
 ## Required original mods
 
 | Mod | Author | Installed version |
@@ -19,8 +21,9 @@ Release status: candidate; automated checks pass, full campaign and rendered UI 
 | Mod | Author | Installed version |
 | --- | --- | --- |
 | [Steel and Thunder: Unique Units](https://steamcommunity.com/sharedfiles/filedetails/?id=1362931045) | Deliverator | Not declared |
+| [LOC_PLANTANDBREED_630E123F_MOD_NAME](https://steamcommunity.com/sharedfiles/filedetails/?id=2929355120) | C1sen | 1 |
 | [Gift It To Me. CQUI Compatibility Version](https://steamcommunity.com/sharedfiles/filedetails/?id=2991439270) | Fampat | 2.2 |
-| [Better Balanced Maps 1.37](https://steamcommunity.com/sharedfiles/filedetails/?id=3179425402) | BaNiPouZ, Talasta | 3 |
+| [Better Balanced Maps 1.37](https://steamcommunity.com/sharedfiles/filedetails/?id=3179425402) | BaNiPouZ, Talasta | 1.37 |
 | [Swift Scout](https://steamcommunity.com/sharedfiles/filedetails/?id=3511280405) | K | 2 |
 | [Custom Era Prolongation](https://steamcommunity.com/sharedfiles/filedetails/?id=3525387402) | Apry | 1 |
 | [Leugi's Unique District Icons](https://steamcommunity.com/sharedfiles/filedetails/?id=882664162) | Leugi, Sukritact | 1 |

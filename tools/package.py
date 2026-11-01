@@ -8,7 +8,7 @@ manifest=ET.parse(ROOT/'UltimateExperience.modinfo').getroot()
 runtime=['UltimateExperience.modinfo','LICENSE','README.md','COLLECTION.md','TESTING.md','ROADMAP.md','RELEASE_NOTES.md','installed-mods.json']+[f.text for f in manifest.findall('Files/File')]
 source=runtime+['.gitignore']+[p.relative_to(ROOT).as_posix() for folder in ['tools','tests'] for p in (ROOT/folder).glob('*.py')]
 for kind,files in [('mod',runtime),('source',source)]:
-    path=OUT/f'ultimate-experience-0.1.0-rc.1-{kind}.zip'
+    path=OUT/f'ultimate-experience-0.1.0-rc.2-{kind}.zip'
     with zipfile.ZipFile(path,'w',compression=zipfile.ZIP_DEFLATED) as archive:
         for name in sorted(set(files)):
             file=(ROOT/name).resolve()

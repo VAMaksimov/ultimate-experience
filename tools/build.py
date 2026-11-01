@@ -24,7 +24,7 @@ def build():
                 if source.is_file() and source.suffix.lower() in {'.sql','.xml','.lua','.modinfo'}:
                     digest.update(str(source.relative_to(folder)).encode()); digest.update(source.read_bytes())
             records.append(dict(folder=folder.name, name=properties.findtext('Name'), author=properties.findtext('Authors') or ('CQUI community / Civitas' if folder.name=='CQUI_Community-Edition-main' else 'Not declared in manifest'),
-                                mod_id=tree.get('id'), version=tree.get('version') or properties.findtext('Version') or 'Not declared',
+                                mod_id=tree.get('id'), version=properties.findtext('Version') or tree.get('version') or 'Not declared',
                                 source=f'https://steamcommunity.com/sharedfiles/filedetails/?id={workshop}' if workshop else links.get(folder.name),
                                 licenses=[p.name for p in folder.glob('*LICENSE*')],
                                 license_status='See upstream license; dependency only' if list(folder.glob('*LICENSE*')) else 'No root license found; dependency only, no redistribution',
@@ -33,7 +33,8 @@ def build():
     (ROOT/'installed-mods.json').write_text(json.dumps(records, indent=2, ensure_ascii=False)+'\n', encoding='utf-8')
     lines=['# Ultimate Experience — Workshop collection','',
            'A BBG-based solo pack with ocean content, policy housing estimates, reconstruction and Survey XP fixes. Subscribe to the original mods and the Ultimate Experience patch. Start a new Gathering Storm game and enable the Oceans game mode.','',
-           'Release status: candidate; automated checks pass, full campaign and rendered UI acceptance remain pending.','']
+           'Release status: candidate; automated checks pass, full campaign and rendered UI acceptance remain pending.','',
+           'Better Balanced Maps 1.37: enable alongside this pack when creating a new map. One combined BBM + BBG + Oceans map is confirmed by the campaign log, and all seven Oceans resources pass BBM registration testing. Oceans redistributes sea resources after map generation, so coastal start balance across multiple seeds remains unverified. Keep BBM enabled when reloading a save created with it.','']
     names={'LOC_BBM_TITLE':'Better Balanced Maps 1.37','LOC_CUSTOM_ERA_MULTIPLIER_NAME':'Custom Era Prolongation','LOC_RUIVO_FIX_ALL':'Repair All Districts and Buildings','LOC_HARMONY_IN_DIVERSITY_NAME':'Harmony in Diversity'}
     for role,title in [('required','Required original mods'),('optional','Optional installed mods — campaign certification pending'),('excluded','Disable these conflicting mods')]:
         lines += ['## '+title,'','| Mod | Author | Installed version |','| --- | --- | --- |']
@@ -48,7 +49,7 @@ def build():
               'All original mods remain their authors’ work and are installed separately. RUIVO’s reconstruction project inspired the repair feature; this pack implements its own gameplay and interface code. This release includes no third-party Lua, SQL, artwork or compiled assets. Exact source fingerprints and license findings are recorded in installed-mods.json.','',
               'The collection has not yet been published to Steam Workshop. The installed versions, not arbitrary future updates, are the initial compatibility reference.']
     (ROOT/'COLLECTION.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
-    mod = ET.Element('Mod', id='5184c35b-e181-4bf9-8f7a-fdba61ae38a2', version='2')
+    mod = ET.Element('Mod', id='5184c35b-e181-4bf9-8f7a-fdba61ae38a2', version='3')
     props = ET.SubElement(mod,'Properties')
     for name,value in {'Name':'Ultimate Experience','Description':'BBG compatibility, ocean content, policy housing, reconstruction and Survey XP. Requires a new Gathering Storm game. Disable Harmony in Diversity and the original Repair All mod.','Authors':'Ultimate Experience contributors','AffectsSavedGames':'1','CompatibleVersions':'2.0'}.items():
         ET.SubElement(props,name).text=value
@@ -81,7 +82,7 @@ def build():
     action('UpdateIcons','UE_Icons',['UI/Icons.sql'],20000)
     action('AddGameplayScripts','UE_Gameplay',['Gameplay/Reconstruction.lua','Gameplay/ReconXP.lua'],20000)
     action('AddUserInterfaces','UE_Refresh',['UI/RepairRefresh.xml'],20000,Context='InGame')
-    for context,script in [('RealModifierAnalysis','Housing'),('GovernmentScreen','Government'),('ProductionPanel','Production'),('TopPanel','TopPanel')]:
+    for context,script in [('RealModifierAnalysis','Housing'),('GovernmentScreen','Government'),('TopPanel','UE_TopPanel')]:
         action('ReplaceUIScript','UE_'+context,order=20000,LuaContext=context,LuaReplace='UI/'+script+'.lua')
     action('ImportFiles','UE_Imports',[str(p.relative_to(ROOT)).replace('\\','/') for p in sorted((ROOT/'UI').glob('*.lua'))],20000)
     files=ET.SubElement(mod,'Files')

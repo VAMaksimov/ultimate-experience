@@ -35,6 +35,23 @@ class ManifestTests(unittest.TestCase):
         for folder in ['Gameplay','UI']:
             for file in (ROOT/folder).glob('*.lua'):
                 lua.execute('assert(load(...))',file.read_text(encoding='utf-8'))
+    def test_ui_wrappers_are_available_without_shadowing(self):
+        manifest=ET.parse(ROOT/'UltimateExperience.modinfo').getroot()
+        contexts=[n.findtext('Properties/LuaContext') for n in manifest.findall('InGameActions/ReplaceUIScript')]
+        self.assertNotIn('ProductionPanel',contexts)
+        self.assertFalse((ROOT/'UI/TopPanel.lua').exists())
+        imported=set()
+        upstream_names=set()
+        for folder in ROOT.parent.iterdir():
+            if not folder.is_dir() or folder==ROOT: continue
+            for info in folder.glob('*.modinfo'):
+                tree=ET.parse(info).getroot()
+                imported.update(Path(f.text).stem.lower() for action in tree.iter('ImportFiles') for f in action.iter('File'))
+            upstream_names.update(p.name.lower() for p in folder.rglob('*.lua'))
+        for f in (ROOT/'UI').glob('*.lua'):
+            self.assertNotIn(f.name.lower(),upstream_names)
+            for name in re.findall(r"include\(['\"]([^'\"]+)['\"]\)",f.read_text()):
+                self.assertIn(name.lower(),imported,'Dependency must import include target: '+name)
 
 class DatabaseTests(unittest.TestCase):
     @classmethod
@@ -74,6 +91,8 @@ class DatabaseTests(unittest.TestCase):
     def tearDown(self): self.db.close()
     def run_sql(self,path): self.db.executescript(path.read_text(encoding='utf-8-sig'))
     def test_oceans_preserves_existing_rules(self):
+        if self.db.execute("SELECT 1 FROM Features WHERE FeatureType='FEATURE_SUK_KELP'").fetchone():
+            self.skipTest('Replay requires a pre-Oceans cache; current cache is the campaign')
         tables=['Improvements','Improvement_Adjacencies','Improvement_YieldChanges','ImprovementModifiers','BuildingModifiers','DistrictModifiers','Features','Resources','Resource_ValidTerrains','Resource_ValidFeatures']
         before={t:set(self.db.execute('SELECT * FROM '+t)) for t in tables}
         self.assertFalse(self.db.execute("SELECT 1 FROM Features WHERE FeatureType='FEATURE_SUK_KELP'").fetchone(), 'Need a baseline without Oceans')
@@ -91,6 +110,8 @@ class DatabaseTests(unittest.TestCase):
         self.assertFalse(self.db.execute("SELECT name FROM sqlite_master WHERE name LIKE 'UE_Original%'").fetchall())
         self.assertTrue(self.db.execute("SELECT 1 FROM Improvement_ValidResources WHERE ResourceType='RESOURCE_SUK_SQUID'").fetchone())
     def test_bbg_fishery_rules_win_after_oceans(self):
+        if self.db.execute("SELECT 1 FROM Features WHERE FeatureType='FEATURE_SUK_KELP'").fetchone():
+            self.skipTest('BBG-only comparison requires a pre-Oceans cache')
         # An existing game cache may already contain this BBG section. Remove
         # only its generated rows so replaying the real script is meaningful.
         for table,column,values in [
@@ -121,7 +142,8 @@ class DatabaseTests(unittest.TestCase):
         plain.close()
     def test_reconstruction_schema_and_human_unlock(self):
         prior=set(self.db.execute('PRAGMA foreign_key_check'))
-        self.run_sql(ROOT/'Data/Reconstruction.sql')
+        if not self.db.execute("SELECT 1 FROM Projects WHERE ProjectType='PROJECT_UE_RECONSTRUCTION'").fetchone():
+            self.run_sql(ROOT/'Data/Reconstruction.sql')
         self.assertEqual(self.db.execute("SELECT StartProductionCost FROM Project_ResourceCosts WHERE ProjectType='PROJECT_UE_RECONSTRUCTION'").fetchone(),(2,))
         self.assertEqual(self.db.execute("SELECT UnlocksFromEffect FROM Projects WHERE ProjectType='PROJECT_UE_RECONSTRUCTION'").fetchone(),(1,))
         self.assertEqual(self.db.execute("SELECT RequirementType FROM Requirements WHERE RequirementId='UE_IS_HUMAN'").fetchone(),('REQUIREMENT_PLAYER_IS_HUMAN',))
@@ -135,6 +157,37 @@ class DatabaseTests(unittest.TestCase):
         db.executescript((ROOT/'Text/OceansRestore.sql').read_text())
         self.assertEqual(db.execute("SELECT Text FROM LocalizedText WHERE Tag='LOC_IMPROVEMENT_FISHERY_DESCRIPTION'").fetchone(),('BBG original',))
         db.close()
+
+    def test_bbm_registers_oceans_resources(self):
+        source=ROOT.parent/'3179425402 Better Balanced Maps 1.37/Data/BBS Maps/Utility/BBS_ResourceGenerator.lua'
+        if not source.exists(): self.skipTest('Installed BBM 1.37 required')
+        if not self.db.execute("SELECT 1 FROM Resources WHERE ResourceType='RESOURCE_SUK_SQUID'").fetchone():
+            self.run_sql(ROOT.parent/"2542898147 Sukritact's Oceans/Core/Suk_Oceans_Resources.sql")
+        # Execute BBM's real registration method with the combined database.
+        script=source.read_text(encoding='utf-8-sig')
+        method=script.split('function BBS_ResourceGenerator:__InitResourceData()',1)[1].split('function BBS_ResourceGenerator:__GetLuxuryResources()',1)[0]
+        lua=lua_runtime()
+        lua.execute('BBS_ResourceGenerator={};Map={GetMapSize=function() return 0 end};GameInfo={Maps={[0]={DefaultPlayers=6}}}')
+        raw=self.db.execute('SELECT ResourceType,ResourceClassType,Frequency,SeaFrequency,PeakEra FROM Resources ORDER BY ResourceType').fetchall()
+        # Index and Hash are supplied by GameInfo, not SQLite's Resources table.
+        rows=[(r[0],zlib.crc32(r[0].encode()),i,*r[1:]) for i,r in enumerate(raw)]
+        lua.globals().rows=lua.table_from([lua.table_from(dict(zip(['ResourceType','Hash','Index','ResourceClassType','Frequency','SeaFrequency','PeakEra'],r))) for r in rows])
+        lua.execute('GameInfo.Resources=function() local i=0;return function() i=i+1;return rows[i] end end')
+        lua.execute('function BBS_ResourceGenerator:__InitResourceData()'+method)
+        lua.execute('''instance={resources=2,iTargetPercentage=30}
+          for _,k in ipairs({'eResourceName','eResourceType','aIndex','eResourceClassType','aaPossibleLocs','aaPossibleWaterLocs','aaPossibleLuxLocs','aaPossibleStratLocs','iFrequency','iSeaFrequency','aPeakEra'}) do instance[k]={} end
+          BBS_ResourceGenerator.__InitResourceData(instance)''')
+        registered={lua.globals().instance.eResourceName[i] for i in range(len(rows))}
+        expected={r[0] for r in rows if r[0].startswith('RESOURCE_SUK_')}
+        self.assertEqual(len(expected),7)
+        self.assertTrue(expected.issubset(registered))
+
+    def test_loaded_oceans_bbg_rules(self):
+        if not self.db.execute("SELECT 1 FROM Features WHERE FeatureType='FEATURE_SUK_KELP'").fetchone():
+            self.skipTest('Combined campaign cache required')
+        self.assertEqual(self.db.execute("SELECT PrereqTech,TraitType,Housing,Workable FROM Improvements WHERE ImprovementType='IMPROVEMENT_FISHERY'").fetchone(),('TECH_CELESTIAL_NAVIGATION',None,2,1))
+        self.assertEqual(self.db.execute("SELECT count(*) FROM Resources WHERE ResourceType LIKE 'RESOURCE_SUK_%'").fetchone()[0],7)
+        self.assertTrue(self.db.execute("SELECT 1 FROM BuildingModifiers WHERE BuildingType='BUILDING_SHIPYARD' AND ModifierId='BBG_SHIPYARD_FISHERY_PRODUCTION'").fetchone())
 
 class ReconstructionTests(unittest.TestCase):
     def setUp(self):
@@ -288,13 +341,15 @@ class RepairUITests(unittest.TestCase):
     def setUp(self):
         self.lua=lua_runtime()
         self.lua.execute('''
-          revision=0;panel=0;tabs=0;production=0;resources=0;report=0;selectedID=1
+          revision=0;panel=0;tabs=0;production=0;resources=0;report=0;selectedID=1;hidden=false;closes=0
+          ContextPtr={LookUpControl=function() return {IsHidden=function() return hidden end} end}
           Game={GetLocalPlayer=function() return 0 end}
           city={GetID=function() return 1 end,GetProperty=function() return revision end}
           Players={[0]={GetCities=function() return {Members=function() return ipairs({city}) end} end}}
           UI={GetHeadSelectedCity=function() return {GetID=function() return selectedID end,GetOwner=function() return 0 end} end}
           LuaEvents={RefreshCityPanel=function() panel=panel+1 end,CityPanelTabRefresh=function() tabs=tabs+1 end,
-            UE_RefreshProduction=function() production=production+1 end,UE_RefreshTopPanel=function() resources=resources+1 end}
+            CQUI_ProductionPanel_CityviewDisable=function() closes=closes+1 end,
+            CQUI_ProductionPanel_CityviewEnable=function() production=production+1 end,UE_RefreshTopPanel=function() resources=resources+1 end}
           ExposedMembers={RMA={RefreshBaseData=function() report=report+1 end}}
         ''')
         self.lua.execute((ROOT/'UI/RepairRefresh.lua').read_text())
@@ -306,6 +361,10 @@ class RepairUITests(unittest.TestCase):
         self.lua.execute('selectedID=2;revision=1;callbacks.GameCoreEventPublishComplete()')
         self.assertEqual(self.lua.globals().panel,0)
         self.assertEqual(self.lua.globals().resources,1)
+    def test_hidden_production_panel_stays_hidden(self):
+        self.lua.execute('hidden=true;revision=1;callbacks.GameCoreEventPublishComplete()')
+        self.assertEqual(self.lua.globals().production,0)
+        self.assertEqual(self.lua.globals().closes,0)
     def test_reload_refresh_does_not_mutate_gameplay(self):
         self.lua.execute('revision=4;callbacks.LoadGameViewStateDone()')
         self.assertEqual(self.lua.globals().revision,4)

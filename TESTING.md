@@ -1,4 +1,14 @@
-# Verification — 2026-10-30
+# Verification — 2026-11-01
+
+## rc.2 hotfix results
+
+- 27 tests run: 26 passed, one skipped (combined-campaign database unavailable in the current main-menu cache). The original pre-Oceans SQL replay and BBG comparison both passed in this run.
+- Added checks that UI include targets are actually imported by dependencies and our UI filenames do not shadow their Lua files. ProductionPanel is now left to CQUI's own replacement; UI/TopPanel.lua was renamed to UI/UE_TopPanel.lua to stop recursive base includes.
+- Repair refresh tests cover an open panel, a hidden panel, another selected city, repeated notifications, and reload without gameplay mutation.
+- Executed installed BBM 1.37's actual resource-registration method using database resource definitions: all seven Oceans resources are recognized. Engine-provided resource indices/hashes are simulated for this targeted test.
+- On October 30, the user's combined campaign log reported BBM 1.37 successful placement and Oceans generation of 167 Kelp tiles, Coral and Caviar. This is evidence for one generated map, not certification of every map script or coastal balance.
+- That same campaign exposed rc.1's TopPanel include recursion and empty production wrapper. They are fixed in source; post-hotfix rendered UI verification is still pending. Desktop capture failed, so no visual success is claimed.
+- rc.2 makes no gameplay SQL, map-generation, mod-ID or saved-property changes. Restart the game and reload the existing rc.1 save with the same mods enabled. No new campaign is needed for this hotfix.
 
 Automated tests execute our Lua through Lupa and SQL in memory. Integration tests read the installed BBG and Better Report Screen source without modifying or distributing it.
 

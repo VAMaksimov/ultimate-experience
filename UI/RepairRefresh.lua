@@ -14,7 +14,15 @@ local function Flush()
             if selected and selected:GetID() == id and selected:GetOwner() == playerID then
                 LuaEvents.RefreshCityPanel();
                 LuaEvents.CityPanelTabRefresh();
-                LuaEvents.UE_RefreshProduction();
+                -- Keep CQUI's own ReplaceUIScript: its production Lua is not
+                -- imported into the VFS and cannot be included by our wrapper.
+                -- Reopen only an already-visible panel, through CQUI's own
+                -- handlers. Open detects the reversing slide and refreshes it.
+                local production = ContextPtr:LookUpControl('/InGame/ProductionPanel');
+                if production and not production:IsHidden() then
+                    LuaEvents.CQUI_ProductionPanel_CityviewDisable();
+                    LuaEvents.CQUI_ProductionPanel_CityviewEnable();
+                end
             end
             local report = ExposedMembers.RMA;
             if report and report.RefreshBaseData then report.RefreshBaseData(playerID) end

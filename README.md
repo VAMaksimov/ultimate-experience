@@ -1,10 +1,12 @@
 # Ultimate Experience
 
-**0.1.0-rc.1 · Civilization VI · Gathering Storm · solo against AI**
+**0.1.0-rc.2 · Civilization VI · Gathering Storm · solo against AI**
 
 A separate compatibility mod for BBG 7.3.1, Sukritact's Oceans, CQUI, Better Report Screen and Extended Policy Cards. This repository contains original patch code, not their code or artwork. Upstream mods remain installed and can receive updates.
 
 ## Install
+
+**Upgrading from rc.1:** this UI-only hotfix can be used with an existing rc.1 campaign. Fully exit Civ VI, replace the entire Ultimate_Experience folder (do not merge folders: the old UI/TopPanel.lua must be removed), then restart and load your save. Keep the same enabled mods. The locally installed workspace has already been updated. A new campaign is required for initial installation or changing map-generation mods, not for this hotfix.
 
 1. Install the five required mods in [COLLECTION.md](COLLECTION.md), plus Rise and Fall and Gathering Storm.
 2. Put the `Ultimate_Experience` folder in the game's `Mods` directory. This workspace is already installed there.
@@ -29,6 +31,8 @@ UI code observes a saved repair revision and refreshes the selected city panel, 
 **Survey XP.** Promoted recon units with Survey receive one extra XP when barbarian combat reports a one-point award. An award already doubled to two receives no extra XP. Other units, ordinary opponents, unpromoted units and Survey-off combat are unaffected. Attacking and defending human/AI recon units qualify. A saved unit marker and event guard prevent repeated compensation.
 
 ## Compatibility and maintenance
+
+**Better Balanced Maps 1.37:** keep it enabled if you used it to create the campaign. One combined BBM + BBG + Oceans map was confirmed in the user's game log: BBM placement succeeded and Oceans generated 167 Kelp tiles plus new resources. An integration test executes BBM's resource-registration method against Oceans resource definitions. No replacement map generator is needed. Oceans subsequently redistributes sea resources, so BBM's coastal start balancing is not guaranteed unchanged; multiple-seed balance testing remains pending. Enabling BBM after map creation cannot rebalance an existing map.
 
 - Initial balance reference: BBG **7.3.1**. Dependency authors, source links, versions, license findings and code fingerprints are recorded in [installed-mods.json](installed-mods.json).
 - Optional installed mods are inventoried in the collection document; campaign compatibility is not yet certified.

@@ -41,6 +41,19 @@
     "role": "required"
   },
   {
+    "folder": "2929355120 Plant and Breed",
+    "name": "LOC_PLANTANDBREED_630E123F_MOD_NAME",
+    "author": "C1sen",
+    "mod_id": "630e123f-ff61-4c75-8738-332c133afd1b",
+    "version": "1",
+    "source": "https://steamcommunity.com/sharedfiles/filedetails/?id=2929355120",
+    "licenses": [],
+    "license_status": "No root license found; dependency only, no redistribution",
+    "source_sha256": "decc0a764468f8d120fe03f6caff7288f2c0e52280d58f0b19af109fb9fc443c",
+    "runtime_tested": false,
+    "role": "optional"
+  },
+  {
     "folder": "2991439270 Gift It To Me. CQUI Compatibility Version",
     "name": "Gift It To Me. CQUI Compatibility Version",
     "author": "Fampat",
@@ -58,7 +71,7 @@
     "name": "LOC_BBM_TITLE",
     "author": "BaNiPouZ, Talasta",
     "mod_id": "c88cba8b-8311-4d35-90c3-51a4a5d66542",
-    "version": "3",
+    "version": "1.37",
     "source": "https://steamcommunity.com/sharedfiles/filedetails/?id=3179425402",
     "licenses": [
       "license.txt"
